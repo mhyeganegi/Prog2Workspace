@@ -1,6 +1,8 @@
+package com.testing;
+
 import java.util.Objects;
 
-public class Song {
+public final class Song {
     private final String title;
     private final String artist;
     private final int duration;

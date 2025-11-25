@@ -9,27 +9,29 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <!-- Nutze 'release' statt source/target -->
-        <maven.compiler.release>23</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>23</maven.compiler.release>
         <junit.jupiter.version>5.11.3</junit.jupiter.version>
+        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
         <maven.surefire.version>3.2.5</maven.surefire.version>
     </properties>
 
     <dependencies>
-        <!-- JUnit 5 API + Engine + (optional) Params -->
+        <!-- JUnit 5 API -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- JUnit 5 Engine (zum Ausführen der Tests) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- Optional: Parameterized Tests -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
@@ -40,20 +42,23 @@
 
     <build>
         <plugins>
-            <!-- Compiler-Plugin (nimmt 'maven.compiler.release' auf) -->
+            <!-- Compiler: setzt effektiv -release 20 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                </configuration>
             </plugin>
 
-            <!-- Wichtig für JUnit 5 -->
+            <!-- Test Runner für JUnit 5 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.version}</version>
                 <configuration>
-                    <!-- verhindert JPMS-Probleme in manchen Setups -->
+                    <!-- vermeidet JPMS-Probleme in manchen Setups -->
                     <useModulePath>false</useModulePath>
                 </configuration>
             </plugin>

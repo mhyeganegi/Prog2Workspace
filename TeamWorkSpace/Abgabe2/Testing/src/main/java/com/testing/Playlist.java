@@ -1,21 +1,34 @@
+package com.testing;
+
+import com.testing.Song;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 import java.util.Objects;
 
 public class Playlist {
     private final String name;
-    private final List<Song> songs;
+    private final List<Song> songs = new ArrayList<>();
 
     public Playlist(String name) {
         if(name == null || name.isBlank()){
             throw new IllegalArgumentException("Playlist-Name darf nicht leer sein");
         }
         this.name=name;
-        this.songs=new ArrayList<>();
     }
     public void addSong(Song song){
         if(song==null)throw new IllegalArgumentException("Song darf nicht null sein");
         songs.add(song);
+    }
+    public void removeSong(Song song){
+        songs.remove(song);
+    }
+    public void clearPlaylist(){
+        songs.clear();
+    }
+    public void shuffle(){
+        Collections.shuffle(songs);
     }
     public int getTotalDuration(){
         int sum = 0;
